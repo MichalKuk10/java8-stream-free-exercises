@@ -38,8 +38,9 @@ class WorkShop {
    * Metoda zwraca liczbę holdingów w których jest przynajmniej jedna firma.
    */
   long getHoldingsWhereAreCompanies() {
-    return -1;
-  }
+    return holdings.stream()
+            .filter(holding -> (holding.getCompanies().size()) >= 1)
+            .count(); }
 
   /**
    * Metoda zwraca liczbę holdingów w których jest przynajmniej jedna firma. Napisz to za pomocą strumieni.
