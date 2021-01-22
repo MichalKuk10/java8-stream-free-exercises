@@ -100,7 +100,17 @@ class WorkShop {
    * Zwraca nazwy wszystkich holdingów sklejone w jeden string i posortowane. String ma postać: (Coca-Cola, Nestle, Pepsico). Napisz to za pomocą strumieni.
    */
   String getHoldingNamesAsStringAsStream() {
-    return null;
+    String concatNames = holdings
+            .stream()
+            .map(holding -> holding.getName())
+            .sorted(Comparator.comparing(n -> n))
+            .reduce("(", (a, b) -> a + b + ", ");
+
+    String result = concatNames.substring(0, concatNames.length() - 2);
+    result += ")";
+
+    return result;
+
   }
 
   /**
