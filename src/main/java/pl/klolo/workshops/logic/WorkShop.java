@@ -117,7 +117,11 @@ class WorkShop {
    * Zwraca liczbę firm we wszystkich holdingach.
    */
   long getCompaniesAmount() {
-    return -1;
+    int result = 0;
+    for(Holding holding : holdings){
+      result += holding.getCompanies().size();
+    }
+    return result;
   }
 
   /**
