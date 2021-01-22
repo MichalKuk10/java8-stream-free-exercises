@@ -79,7 +79,21 @@ class WorkShop {
    * Zwraca nazwy wszystkich holdingów sklejone w jeden string i posortowane. String ma postać: (Coca-Cola, Nestle, Pepsico)
    */
   String getHoldingNamesAsString() {
-    return null;
+    String result = "(";
+    List<String> holdingsNameList = new ArrayList<>();
+    for(int i =0; i <= holdings.size() -1; i++){
+      holdingsNameList.add(holdings.get(i).getName());
+    }
+    Collections.sort(holdingsNameList);
+
+    for(int x = 0; x <= holdingsNameList.size() -1; x++){
+      if(x == holdingsNameList.size() -1){
+        result += holdingsNameList.get(x) +")";
+      }else
+      result += holdingsNameList.get(x) + ", ";
+    }
+    return  result;
+
   }
 
   /**
