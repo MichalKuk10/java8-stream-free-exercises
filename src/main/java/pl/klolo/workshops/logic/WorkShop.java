@@ -151,7 +151,10 @@ class WorkShop {
    * Zwraca liczbę wszystkich pracowników we wszystkich firmach. Napisz to za pomocą strumieni.
    */
   long getAllUserAmountAsStream() {
-    return -1;
+    return holdings.stream()
+            .flatMap(holding -> holding.getCompanies().stream())
+            .mapToInt(company -> company.getUsers().size())
+            .sum();
   }
 
   /**
