@@ -219,7 +219,16 @@ class WorkShop {
    * Zwraca listę firm jako string gdzie poszczególne firmy są oddzielone od siebie znakiem "+"
    */
   String getAllCompaniesNamesAsString() {
-    return null;
+    String tempWord = "";
+
+    for(Holding holding : holdings) {
+      for (Company company : holding.getCompanies()) {
+            tempWord += company.getName() + "+";
+      }
+    }
+    String result = tempWord.substring(0, tempWord.length() - 1);
+
+    return result;
   }
 
   /**
