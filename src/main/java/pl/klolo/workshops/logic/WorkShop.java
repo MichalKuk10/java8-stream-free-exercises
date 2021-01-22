@@ -161,7 +161,14 @@ class WorkShop {
    * Zwraca listę wszystkich nazw firm w formie listy.
    */
   List<String> getAllCompaniesNames() {
-    return null;
+    List<String> companiesNames = new ArrayList<>();
+
+    for(Holding holding : holdings){
+      for(Company company : holding.getCompanies()){
+        companiesNames.add(company.getName());
+      }
+    }
+    return companiesNames;
   }
 
   /**
@@ -169,14 +176,31 @@ class WorkShop {
    * pomocą strumieni.
    */
   List<String> getAllCompaniesNamesAsStream() {
-    return null;
+    Stream<Company> companyStream = companyStream(holdings);
+
+    return companyStream.map(company -> company.getName())
+            .collect(Collectors.toList());
+
+  }
+
+  private Stream<Company> companyStream(List<Holding> com){
+    return holdings.stream()
+            .flatMap(holding -> holding.getCompanies().stream());
   }
 
   /**
    * Zwraca listę wszystkich firm jako listę, której implementacja to LinkedList.
    */
   LinkedList<String> getAllCompaniesNamesAsLinkedList() {
-    return null;
+    LinkedList<String> companiesNames = new LinkedList<>();
+
+    for(Holding holding : holdings){
+      for(Company company : holding.getCompanies()){
+        companiesNames.add(company.getName());
+      }
+    }
+    return companiesNames;
+
   }
 
   /**
@@ -184,7 +208,12 @@ class WorkShop {
    * pomocą strumieni.
    */
   LinkedList<String> getAllCompaniesNamesAsLinkedListAsStream() {
-    return null;
+    Stream<Company> companyStream = holdings.stream()
+            .flatMap(holding -> holding.getCompanies().stream());
+
+    LinkedList<String> companiesNames = (LinkedList<String>) companyStream.map(company -> company.getName())
+            .collect(Collectors.toList());
+    return companiesNames;
   }
 
   /**
