@@ -128,7 +128,9 @@ class WorkShop {
    * Zwraca liczbę firm we wszystkich holdingach. Napisz to za pomocą strumieni.
    */
   long getCompaniesAmountAsStream() {
-    return -1;
+    return holdings.stream()
+            .mapToInt(holding -> holding.getCompanies().size())
+            .sum();
   }
 
   /**
