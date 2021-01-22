@@ -1,14 +1,11 @@
 package pl.klolo.workshops.logic;
 
 import java.math.BigDecimal;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import pl.klolo.workshops.domain.Account;
 import pl.klolo.workshops.domain.AccountType;
@@ -38,29 +35,44 @@ class WorkShop {
    * Metoda zwraca liczbę holdingów w których jest przynajmniej jedna firma.
    */
   long getHoldingsWhereAreCompanies() {
-    return holdings.stream()
-            .filter(holding -> (holding.getCompanies().size()) >= 1)
-            .count(); }
+    int result = 0;
+
+    for(Holding holding : holdings) {
+      if ((holding.getCompanies().size()) >= 1) {
+        result += 1;
+      }
+    }
+    return result;
+    }
 
   /**
    * Metoda zwraca liczbę holdingów w których jest przynajmniej jedna firma. Napisz to za pomocą strumieni.
    */
   long getHoldingsWhereAreCompaniesAsStream() {
-    return -1;
+
+    return holdings.stream()
+            .filter(holding -> (holding.getCompanies().size()) >= 1)
+            .count();
   }
 
   /**
    * Zwraca nazwy wszystkich holdingów pisane z małej litery w formie listy.
    */
   List<String> getHoldingNames() {
-    return null;
+    List<String> holingsList = new ArrayList<>();
+    for (Holding holding : holdings){
+      holingsList.add(holding.getName().toLowerCase());
+    }
+    return holingsList;
   }
 
   /**
    * Zwraca nazwy wszystkich holdingów pisane z małej litery w formie listy. Napisz to za pomocą strumieni.
    */
   List<String> getHoldingNamesAsStream() {
-    return null;
+    return holdings.stream()
+            .map(holding -> holding.getName().toLowerCase())
+            .collect(Collectors.toList());
   }
 
   /**
