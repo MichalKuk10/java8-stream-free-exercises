@@ -137,7 +137,14 @@ class WorkShop {
    * Zwraca liczbę wszystkich pracowników we wszystkich firmach.
    */
   long getAllUserAmount() {
-    return -1;
+    int result = 0;
+
+    for(Holding holding : holdings) {
+      for (int i = 0; i <= holding.getCompanies().size() -1; i++) {
+        result += holding.getCompanies().get(i).getUsers().size();
+      }
+    }
+      return result;
   }
 
   /**
