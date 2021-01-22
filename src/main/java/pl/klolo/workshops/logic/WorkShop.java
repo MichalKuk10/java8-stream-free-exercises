@@ -208,12 +208,11 @@ class WorkShop {
    * pomocą strumieni.
    */
   LinkedList<String> getAllCompaniesNamesAsLinkedListAsStream() {
-    Stream<Company> companyStream = holdings.stream()
-            .flatMap(holding -> holding.getCompanies().stream());
+    Stream<Company> companyStream = companyStream(holdings);
 
-    LinkedList<String> companiesNames = (LinkedList<String>) companyStream.map(company -> company.getName())
-            .collect(Collectors.toList());
-    return companiesNames;
+    return companyStream.map(company -> company.getName())
+            .collect(Collectors.toCollection(LinkedList::new));
+
   }
 
   /**
