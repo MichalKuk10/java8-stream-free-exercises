@@ -7,6 +7,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.w3c.dom.ls.LSOutput;
 import pl.klolo.workshops.domain.Account;
 import pl.klolo.workshops.domain.AccountType;
 import pl.klolo.workshops.domain.Company;
@@ -176,9 +178,8 @@ class WorkShop {
    * pomocą strumieni.
    */
   List<String> getAllCompaniesNamesAsStream() {
-    Stream<Company> companyStream = companyStream(holdings);
-
-    return companyStream.map(company -> company.getName())
+    return companyStream(holdings)
+            .map(company -> company.getName())
             .collect(Collectors.toList());
 
   }
@@ -208,11 +209,9 @@ class WorkShop {
    * pomocą strumieni.
    */
   LinkedList<String> getAllCompaniesNamesAsLinkedListAsStream() {
-    Stream<Company> companyStream = companyStream(holdings);
-
-    return companyStream.map(company -> company.getName())
+    return companyStream(holdings)
+            .map(company -> company.getName())
             .collect(Collectors.toCollection(LinkedList::new));
-
   }
 
   /**
@@ -255,7 +254,11 @@ class WorkShop {
    * UWAGA: Zadanie z gwiazdką. Nie używamy zmiennych.
    */
   String getAllCompaniesNamesAsStringUsingStringBuilder() {
-    return null;
+
+    return companyStream(holdings)
+            .map(company -> new StringBuilder().append(company.getName()))
+            .collect(Collectors.joining("+"));
+
   }
 
   /**
