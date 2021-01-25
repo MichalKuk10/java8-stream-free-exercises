@@ -9,13 +9,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.w3c.dom.ls.LSOutput;
-import pl.klolo.workshops.domain.Account;
-import pl.klolo.workshops.domain.AccountType;
-import pl.klolo.workshops.domain.Company;
+import pl.klolo.workshops.domain.*;
 import pl.klolo.workshops.domain.Currency;
-import pl.klolo.workshops.domain.Holding;
-import pl.klolo.workshops.domain.Permit;
-import pl.klolo.workshops.domain.User;
 import pl.klolo.workshops.mock.HoldingMockGenerator;
 
 class WorkShop {
@@ -184,10 +179,7 @@ class WorkShop {
 
   }
 
-  private Stream<Company> companyStream(List<Holding> com){
-    return holdings.stream()
-            .flatMap(holding -> holding.getCompanies().stream());
-  }
+
 
   /**
    * Zwraca listę wszystkich firm jako listę, której implementacja to LinkedList.
@@ -350,6 +342,7 @@ class WorkShop {
    * @see #getAllCurrencies()
    */
   String getAllCurrenciesUsingGenerate() {
+
     return null;
   }
 
@@ -357,7 +350,20 @@ class WorkShop {
    * Zwraca liczbę kobiet we wszystkich firmach.
    */
   long getWomanAmount() {
-    return -1;
+
+  long result = 0;
+
+    for (Holding holding : holdings) {
+      for (Company company : holding.getCompanies()) {
+        for (User user : company.getUsers()) {
+          if (user.getSex().equals(Sex.WOMAN)) {
+            result += 1;
+          }
+        }
+      }
+    }
+
+    return result;
   }
 
   /**
@@ -732,18 +738,18 @@ class WorkShop {
     return null;
   }
 
-  /**
-   * Zwraca strumień wszystkich firm.
-   */
-  private Stream<Company> getCompanyStream() {
-    return null;
-  }
+
 
   /**
    * Zwraca zbiór walut w jakich są rachunki.
    */
   private Set<Currency> getCurenciesSet() {
-    return null;
+   return holdings.stream()
+            .flatMap(holding -> holding.getCompanies().stream())
+            .flatMap(company -> company.getUsers().stream())
+            .flatMap(user -> user.getAccounts().stream())
+            .map(currency -> currency.getCurrency())
+            .collect(Collectors.toSet());
   }
 
   /**
@@ -760,4 +766,8 @@ class WorkShop {
     return null;
   }
 
+ private Stream<Company> companyStream(List<Holding> com){
+  return holdings.stream()
+          .flatMap(holding -> holding.getCompanies().stream());
+}
 }
