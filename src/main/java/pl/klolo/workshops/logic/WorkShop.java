@@ -8,7 +8,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.w3c.dom.ls.LSOutput;
 import pl.klolo.workshops.domain.*;
 import pl.klolo.workshops.domain.Currency;
 import pl.klolo.workshops.mock.HoldingMockGenerator;
@@ -21,7 +20,8 @@ class WorkShop {
   private final List<Holding> holdings;
 
   // Predykat określający czy użytkownik jest kobietą
-  private final Predicate<User> isWoman = null;
+  private final Predicate<User> isWoman = user -> user.getSex().equals(Sex.WOMAN);
+
 
   WorkShop() {
     final HoldingMockGenerator holdingMockGenerator = new HoldingMockGenerator();
@@ -763,7 +763,9 @@ class WorkShop {
    * Tworzy strumień użytkowników.
    */
   private Stream<User> getUserStream() {
-    return null;
+    return holdings.stream()
+            .flatMap(holding -> holding.getCompanies().stream())
+            .flatMap(company -> company.getUsers().stream());
   }
 
  private Stream<Company> companyStream(List<Holding> com){
