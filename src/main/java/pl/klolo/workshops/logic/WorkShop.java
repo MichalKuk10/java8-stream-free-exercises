@@ -1,6 +1,8 @@
 package pl.klolo.workshops.logic;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -381,7 +383,13 @@ class WorkShop {
    * Przelicza kwotę na rachunku na złotówki za pomocą kursu określonego w enum Currency. Ustaw precyzje na 3 miejsca po przecinku.
    */
   BigDecimal getAccountAmountInPLN(final Account account) {
-    return null;
+
+    float currency = account.getCurrency().rate;
+    BigDecimal amount = account.getAmount();
+
+    BigDecimal result = new BigDecimal(currency).multiply(amount);
+
+    return result.setScale(3, RoundingMode.DOWN);
   }
 
 
