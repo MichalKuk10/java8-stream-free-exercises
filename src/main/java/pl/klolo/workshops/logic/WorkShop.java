@@ -320,7 +320,27 @@ class WorkShop {
    * Zwraca listę wszystkich walut w jakich są rachunki jako string, w którym wartości występują bez powtórzeń i są posortowane. Napisz to za pomocą strumieni.
    */
   String getAllCurrenciesAsStream() {
-    return null;
+    Set<String> currencies = holdings.stream()
+            .flatMap(holding -> holding.getCompanies().stream())
+            .flatMap(company -> company.getUsers().stream())
+            .flatMap(user -> user.getAccounts().stream())
+            .map(currency -> String.valueOf(currency.getCurrency()))
+            .collect(Collectors.toSet());
+
+    Set<String> s = new TreeSet<>();
+
+    for(String cur : currencies){
+      s.add(cur);
+    }
+
+    String result = "";
+
+    for(String element : s){
+      result += element + ", ";
+    }
+
+    return result.substring(0, result.length() - 2);
+
   }
 
   /**
