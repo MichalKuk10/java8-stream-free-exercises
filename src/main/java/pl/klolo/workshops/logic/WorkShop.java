@@ -397,14 +397,16 @@ class WorkShop {
    * Przelicza kwotę na rachunku na złotówki za pomocą kursu określonego w enum Currency. Napisz to za pomocą strumieni.
    */
   BigDecimal getAccountAmountInPLNAsStream(final Account account) {
-    return null;
+   return  null;
+
+
   }
 
   /**
    * Przelicza kwotę na podanych rachunkach na złotówki za pomocą kursu określonego w enum Currency  i sumuje ją.
    */
   BigDecimal getTotalCashInPLN(final List<Account> accounts) {
-    return null;
+   return null;
   }
 
   /**
@@ -418,7 +420,19 @@ class WorkShop {
    * Zwraca imiona użytkowników w formie zbioru, którzy spełniają podany warunek.
    */
   Set<String> getUsersForPredicate(final Predicate<User> userPredicate) {
-    return null;
+
+    Set<String> users = new HashSet<>();
+    for (Holding holding : holdings) {
+      for (Company company : holding.getCompanies()) {
+        for (User user : company.getUsers()) {
+          if (userPredicate.test(user)){
+            users.add(user.getFirstName());
+
+          }
+        }
+      }
+    }
+    return users;
   }
 
   /**
