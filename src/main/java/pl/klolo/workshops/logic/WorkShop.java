@@ -280,14 +280,40 @@ class WorkShop {
    * Zwraca liczbę wszystkich rachunków, użytkowników we wszystkich firmach. Napisz to za pomocą strumieni.
    */
   long getAllUserAccountsAmountAsStream() {
-    return -1;
+    return holdings.stream()
+            .flatMap(holding -> holding.getCompanies().stream())
+            .flatMap(company -> company.getUsers().stream())
+            .mapToInt(user -> user.getAccounts().size())
+            .sum();
   }
 
   /**
    * Zwraca listę wszystkich walut w jakich są rachunki jako string, w którym wartości występują bez powtórzeń i są posortowane.
    */
   String getAllCurrencies() {
-    return null;
+
+    //"CHF, EUR, PLN, USD"
+
+    Set<String> currency = new TreeSet<>();
+
+    for(Holding holding : holdings){
+      for(Company company : holding.getCompanies()){
+        for(User user : company.getUsers()){
+            for(Account account : user.getAccounts()){
+              currency.add(String.valueOf(account.getCurrency()));
+            }
+        }
+      }
+    }
+
+    String result = "";
+
+    for(String element : currency){
+      result += element + ", ";
+    }
+
+    return result.substring(0, result.length() - 2);
+
   }
 
   /**
