@@ -371,7 +371,9 @@ class WorkShop {
    * czy mamy doczynienia z kobietą inech będzie polem statycznym w klasie. Napisz to za pomocą strumieni.
    */
   long getWomanAmountAsStream() {
-    return -1;
+    return getUserStream()
+            .filter(isWoman)
+            .count();
   }
 
 
@@ -765,7 +767,8 @@ class WorkShop {
   private Stream<User> getUserStream() {
     return holdings.stream()
             .flatMap(holding -> holding.getCompanies().stream())
-            .flatMap(company -> company.getUsers().stream());
+            .flatMap(company -> company.getUsers()
+                    .stream());
   }
 
  private Stream<Company> companyStream(List<Holding> com){
