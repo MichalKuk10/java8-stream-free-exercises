@@ -515,15 +515,28 @@ class WorkShop {
    * Wyszukuje najbogatsza kobietę i zwraca ja. Metoda musi uzwględniać to że rachunki są w różnych walutach. Napisz to za pomocą strumieni.
    */
   Optional<User> getRichestWomanAsStream() {
-    return null;
+      return  null;
   }
 
   /**
    * Zwraca nazwy pierwszych N firm. Kolejność nie ma znaczenia.
    */
   Set<String> getFirstNCompany(final int n) {
-    return null;
-  }
+    Set<String> companies = new HashSet<>();
+    int temp =0;
+    for (Holding holding : holdings) {
+      for (Company company : holding.getCompanies()) {
+        if (temp >= n) {
+          break;
+        }else{
+           companies.add(company.getName());
+          temp++;
+          }
+        }
+      }
+     return companies;
+      }
+
 
   /**
    * Zwraca nazwy pierwszych N firm. Kolejność nie ma znaczenia. Napisz to za pomocą strumieni.
