@@ -487,7 +487,28 @@ class WorkShop {
    * Wyszukuje najbogatsza kobietę i zwraca ja. Metoda musi uzwględniać to że rachunki są w różnych walutach.
    */
   Optional<User> getRichestWoman() {
-    return null;
+
+    List<User> userList = new ArrayList<>();
+    for (Holding holding : holdings) {
+      for (Company company : holding.getCompanies()) {
+        for (User user : company.getUsers()) {
+          if (user.getSex().equals(Sex.WOMAN)){
+            userList.add(user);
+          } } }
+    }
+    TreeMap<BigDecimal, User> richestPerson = new TreeMap<>();
+
+    for(User user : userList){
+      List<Account> accounts = user.getAccounts();
+      BigDecimal amount = new BigDecimal(0);
+      for (Account account :  accounts){
+          amount = amount.add(getAccountAmountInPLN(account));
+          richestPerson.put(amount , user);
+      }
+    }
+
+    return Optional.ofNullable(richestPerson.get(richestPerson.lastKey()));
+
   }
 
   /**
