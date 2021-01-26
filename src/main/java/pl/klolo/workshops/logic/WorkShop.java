@@ -468,7 +468,11 @@ class WorkShop {
    * to za pomocą strumieni.
    */
   List<String> getOldWomanAsStream(final int age) {
-    return null;
+    return getUserStream()
+            .filter(user -> user.getAge() > age)
+            .filter(user -> user.getSex() != Sex.MAN & user.getSex() != Sex.OTHER)
+            .map(user -> user.getFirstName())
+            .collect(Collectors.toList());
   }
 
   /**
