@@ -542,7 +542,10 @@ class WorkShop {
    * Zwraca nazwy pierwszych N firm. Kolejność nie ma znaczenia. Napisz to za pomocą strumieni.
    */
   Set<String> getFirstNCompanyAsStream(final int n) {
-    return null;
+    return companyStream (holdings)
+            .limit(n)
+            .map(company -> company.getName())
+            .collect(Collectors.toSet());
   }
 
   /**
