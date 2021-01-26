@@ -568,6 +568,7 @@ class WorkShop {
    * Zwraca pierwszego z brzegu użytkownika dla podanego warunku. W przypadku kiedy nie znajdzie użytkownika wyrzuca wyjątek IllegalArgumentException.
    */
   User getUser(final Predicate<User> predicate) {
+
     for (Holding holding : holdings) {
       for (Company company : holding.getCompanies()) {
         for (User user : company.getUsers()) {
@@ -590,7 +591,14 @@ class WorkShop {
    * za pomocą strumieni.
    */
   User getUserAsStream(final Predicate<User> predicate) {
-    return null;
+    try{
+      List<User> collect = getUserStream()
+              .filter(user -> predicate.test(user))
+              .collect(Collectors.toList());
+      return collect.get(0);
+    }catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException();
+    }
   }
 
   /**
