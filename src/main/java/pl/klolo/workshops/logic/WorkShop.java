@@ -479,7 +479,8 @@ class WorkShop {
    * Dla każdej firmy uruchamia przekazaną metodę.
    */
   void executeForEachCompany(final Consumer<Company> consumer) {
-    throw new IllegalArgumentException();
+    companyStream(holdings).forEach(consumer);
+
   }
 
   /**
