@@ -1,7 +1,6 @@
 package pl.klolo.workshops.logic;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.*;
 import java.util.function.Consumer;
@@ -397,7 +396,7 @@ class WorkShop {
    * Przelicza kwotę na rachunku na złotówki za pomocą kursu określonego w enum Currency. Napisz to za pomocą strumieni.
    */
   BigDecimal getAccountAmountInPLNAsStream(final Account account) {
-   return  null;
+    return null;
 
 
   }
@@ -406,7 +405,7 @@ class WorkShop {
    * Przelicza kwotę na podanych rachunkach na złotówki za pomocą kursu określonego w enum Currency  i sumuje ją.
    */
   BigDecimal getTotalCashInPLN(final List<Account> accounts) {
-   return null;
+    return null;
   }
 
   /**
@@ -439,7 +438,10 @@ class WorkShop {
    * Zwraca imiona użytkowników w formie zbioru, którzy spełniają podany warunek. Napisz to za pomocą strumieni.
    */
   Set<String> getUsersForPredicateAsStream(final Predicate<User> userPredicate) {
-    return null;
+    return getUserStream()
+            .filter(userPredicate)
+            .map(user -> user.getFirstName())
+            .collect(Collectors.toSet());
   }
 
   /**
