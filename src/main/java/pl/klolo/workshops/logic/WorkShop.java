@@ -733,14 +733,16 @@ class WorkShop {
    * zwraca zbiór wszystkich użytkowników. Jeżeli jest ich więcej niż 10 to obcina ich ilość do 10.
    */
   Set<User> getUsers() {
-    return null;
+      return null;
   }
 
   /**
    * zwraca zbiór wszystkich użytkowników. Jeżeli jest ich więcej niż 10 to obcina ich ilość do 10. Napisz to za pomocą strumieni.
    */
   Set<User> getUsersAsStream() {
-    return null;
+    return getUserStream()
+            .limit(10)
+            .collect(Collectors.toSet());
   }
 
   /**
