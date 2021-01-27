@@ -620,7 +620,8 @@ class WorkShop {
    * Zwraca mapę firm, gdzie kluczem jest jej nazwa a wartością lista pracowników. Napisz to za pomocą strumieni.
    */
   Map<String, List<User>> getUserPerCompanyAsStream() {
-    companyStream().
+    return companyStream(holdings)
+            .collect(Collectors.toMap(company -> company.getName(), company -> company.getUsers()));
   }
 
   /**
