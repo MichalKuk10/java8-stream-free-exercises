@@ -922,7 +922,10 @@ class WorkShop {
    * Tworzy strumień rachunków.
    */
   private Stream<Account> getAccoutStream() {
-    return null;
+    return holdings.stream()
+            .flatMap(holding -> holding.getCompanies().stream())
+            .flatMap(company -> company.getUsers().stream())
+            .flatMap(user -> user.getAccounts().stream());
   }
 
   /**
