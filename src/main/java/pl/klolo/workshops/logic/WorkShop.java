@@ -921,7 +921,20 @@ class WorkShop {
    * List<Users>. Wykonaj zadanie za pomoca strumieni.
    */
   Map<Boolean, List<User>> divideUsersByPredicateAsStream(final Predicate<User> predicate) {
-    return null;
+    List<User> usersWhoPassed = getUserStream()
+            .filter(user -> predicate.test(user))
+            .collect(Collectors.toList());
+
+    List<User> usersWhoFailed = getUserStream()
+            .filter(user -> predicate.test(user) == false)
+            .collect(Collectors.toList());
+
+    Map<Boolean, List<User>> resultMap = new HashMap<>();
+    resultMap.put(true, usersWhoPassed);
+    resultMap.put(false, usersWhoFailed);
+
+    return resultMap;
+
   }
 
 
