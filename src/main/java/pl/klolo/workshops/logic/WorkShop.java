@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import jdk.javadoc.internal.doclets.toolkit.taglets.PropertyGetterTaglet;
 import org.w3c.dom.ls.LSOutput;
 import pl.klolo.workshops.domain.*;
 import pl.klolo.workshops.domain.Currency;
@@ -673,7 +674,7 @@ class WorkShop {
    * jest natomiast zbiór nazwisk tych osób.
    */
   Map<Boolean, Set<String>> getUserBySex() {
-    return null;
+   return  null;
   }
 
   /**
