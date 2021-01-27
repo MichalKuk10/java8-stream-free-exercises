@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.w3c.dom.ls.LSOutput;
 import pl.klolo.workshops.domain.*;
 import pl.klolo.workshops.domain.Currency;
 import pl.klolo.workshops.mock.HoldingMockGenerator;
@@ -800,7 +801,12 @@ class WorkShop {
    * Pasibrzuch, Adam Wojcik. Napisz to za pomocą strumieni.
    */
   void showAllUserAsStream() {
-    throw new IllegalArgumentException("not implemented yet");
+   getUserStream()
+              .map(user -> user.getFirstName() + " "+  user.getLastName() + ", ")
+              .sorted(String::compareToIgnoreCase)
+              .sorted(Comparator.reverseOrder())
+              .forEach(employee -> System.out.print(employee));
+
   }
 
   /**
