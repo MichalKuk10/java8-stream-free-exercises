@@ -769,7 +769,30 @@ class WorkShop {
    * Pasibrzuch, Adam Wojcik
    */
   void showAllUser() {
-    throw new IllegalArgumentException("not implemented yet");
+
+    List<String> users = new ArrayList<>();
+
+    for (Holding holding : holdings) {
+      for (Company company : holding.getCompanies()) {
+        for (User user : company.getUsers()) {
+          users.add(user.getFirstName() + " " + user.getLastName());
+        }
+      }
+    }
+    Collections.sort(users, new Comparator<String>() {
+      @Override
+      public int compare(String s1, String s2) {
+        return s2.compareToIgnoreCase(s1);
+      }
+    });
+
+    for (String employee  : users){
+      if (users.get(users.size()-1) == employee){
+        System.out.println(employee + ".");
+        break;
+      }
+      System.out.print(employee +", ");
+    }
   }
 
   /**
