@@ -629,7 +629,18 @@ class WorkShop {
    * Możesz skorzystać z metody entrySet.
    */
   Map<String, List<String>> getUserPerCompanyAsString() {
-    return null;
+    Map<String, List<String>> userPerCompany = new HashMap<>();
+
+    for (Holding holding : holdings) {
+      for (Company company : holding.getCompanies()) {
+        List<String> users = new ArrayList<>();
+        for (User user : company.getUsers()) {
+          users.add(user.getFirstName() + " " + user.getLastName());
+      }
+        userPerCompany.put(company.getName(), users);
+    }
+  }
+    return userPerCompany;
   }
 
   /**
@@ -637,7 +648,7 @@ class WorkShop {
    * Możesz skorzystać z metody entrySet. Napisz to za pomocą strumieni.
    */
   Map<String, List<String>> getUserPerCompanyAsStringAsStream() {
-    return null;
+    return  null;
   }
 
   /**
@@ -718,7 +729,17 @@ class WorkShop {
    * Zwraca użytkownika, który spełnia podany warunek.
    */
   Optional<User> findUser(final Predicate<User> userPredicate) {
+    for (Holding holding : holdings) {
+      for (Company company : holding.getCompanies()) {
+        for (User user : company.getUsers()) {
+          if (userPredicate.test(user)) {
+            return Optional.ofNullable(user);
+          }
+        }
+      }
+    }
     return null;
+
   }
 
   /**
