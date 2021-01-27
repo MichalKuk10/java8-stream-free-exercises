@@ -595,7 +595,7 @@ class WorkShop {
       List<User> collect = getUserStream()
               .filter(user -> predicate.test(user))
               .collect(Collectors.toList());
-      return collect.get(0);
+        return collect.get(0);
     }catch (IllegalArgumentException e) {
       throw new IllegalArgumentException();
     }
@@ -605,14 +605,22 @@ class WorkShop {
    * Zwraca mapę firm, gdzie kluczem jest jej nazwa a wartością lista pracowników.
    */
   Map<String, List<User>> getUserPerCompany() {
-    return null;
+    Map<String, List<User>> userPerCompany = new HashMap<>();
+
+    for (Holding holding : holdings) {
+      for (Company company : holding.getCompanies()) {
+          userPerCompany.put(company.getName(), company.getUsers());
+        }
+    }
+    return userPerCompany;
+
   }
 
   /**
    * Zwraca mapę firm, gdzie kluczem jest jej nazwa a wartością lista pracowników. Napisz to za pomocą strumieni.
    */
   Map<String, List<User>> getUserPerCompanyAsStream() {
-    return null;
+    companyStream().
   }
 
   /**
