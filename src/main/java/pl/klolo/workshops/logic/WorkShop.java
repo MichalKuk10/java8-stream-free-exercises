@@ -702,14 +702,31 @@ class WorkShop {
    * Zwraca listę wszystkich imion w postaci Stringa, gdzie imiona oddzielone są spacją i nie zawierają powtórzeń.
    */
   String getUserNames() {
-    return null;
+    Set<String> names = new TreeSet<>();
+    for (Holding holding : holdings) {
+      for (Company company : holding.getCompanies()) {
+        for (User user : company.getUsers()) {
+            names.add(user.getFirstName());
+        }
+      }
+    }
+    String result = "";
+
+    for(String name : names){
+      result += name + " ";
+    }
+    return result;
   }
 
   /**
    * Zwraca listę wszystkich imion w postaci Stringa, gdzie imiona oddzielone są spacją i nie zawierają powtórzeń. Napisz to za pomocą strumieni.
    */
   String getUserNamesAsStream() {
-    return null;
+   return getUserStream()
+            .map(user -> user.getFirstName())
+            .distinct()
+            .sorted(String::compareToIgnoreCase)
+            .reduce("", (a, b) -> a + b + " ");
   }
 
   /**
