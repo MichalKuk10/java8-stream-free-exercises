@@ -9,8 +9,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import jdk.javadoc.internal.doclets.toolkit.taglets.PropertyGetterTaglet;
-import org.w3c.dom.ls.LSOutput;
+
 import pl.klolo.workshops.domain.*;
 import pl.klolo.workshops.domain.Currency;
 import pl.klolo.workshops.mock.HoldingMockGenerator;
@@ -884,7 +883,16 @@ class WorkShop {
    * final. Jeżeli podano liczbę większą niż liczba użytkowników należy wyrzucić wyjątek (bez zmiany sygnatury metody). Napisz to za pomocą strumieni.
    */
   List<User> getRandomUsersAsStream(final int n) {
-    return null;
+    List<User> limit = getUserStream()
+            .collect(Collectors.toSet())
+            .stream()
+            .limit(n)
+            .collect(Collectors.toList());
+    if(limit.size() < n){
+      throw new IllegalArgumentException();
+    }else {
+      return limit;
+    }
   }
 
   /**
