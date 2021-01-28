@@ -875,7 +875,22 @@ class WorkShop {
    * final. Jeżeli podano liczbę większą niż liczba użytkowników należy wyrzucić wyjątek (bez zmiany sygnatury metody).
    */
   List<User> getRandomUsers(final int n) {
-    return null;
+
+    Set<User> usersSet = new HashSet<>();
+    for (Holding holding : holdings) {
+      for (Company company : holding.getCompanies()) {
+        for (User user : company.getUsers()) {
+          usersSet.add(user);
+        }
+      }
+    }
+
+    if (usersSet.size() < n){
+      throw new IllegalArgumentException();
+    }else {
+      return new ArrayList<User>(usersSet);
+      }
+
   }
 
   /**
